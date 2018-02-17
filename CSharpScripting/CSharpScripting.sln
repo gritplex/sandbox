@@ -3,16 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptingBase", "ScriptingBase\ScriptingBase.csproj", "{A723BE90-4F68-40E9-B9D0-52418E953133}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScriptingBase", "ScriptingBase\ScriptingBase.csproj", "{A723BE90-4F68-40E9-B9D0-52418E953133}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTestClient", "ConsoleTestClient\ConsoleTestClient.csproj", "{E5617525-F0F5-43B4-90C6-1C3FF85EC28B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTestClient", "ConsoleTestClient\ConsoleTestClient.csproj", "{E5617525-F0F5-43B4-90C6-1C3FF85EC28B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{06861875-D146-42D9-B698-957C5DD4899E}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BechmarkScripting", "BechmarkScripting\BechmarkScripting.csproj", "{DF9EE8DB-3D5B-44F3-A133-C341CD71BC4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BechmarkScripting", "BechmarkScripting\BechmarkScripting.csproj", "{DF9EE8DB-3D5B-44F3-A133-C341CD71BC4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptingUi", "ScriptingUi\ScriptingUi.csproj", "{EEC6CB33-AC94-465A-81DB-A4600927DD06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{DF9EE8DB-3D5B-44F3-A133-C341CD71BC4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF9EE8DB-3D5B-44F3-A133-C341CD71BC4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF9EE8DB-3D5B-44F3-A133-C341CD71BC4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEC6CB33-AC94-465A-81DB-A4600927DD06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEC6CB33-AC94-465A-81DB-A4600927DD06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEC6CB33-AC94-465A-81DB-A4600927DD06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEC6CB33-AC94-465A-81DB-A4600927DD06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

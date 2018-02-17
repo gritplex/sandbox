@@ -1,0 +1,26 @@
+﻿@model IReadOnlyDictionary<Guid, ScriptModel>
+@{
+    ViewData["Title"] = "Script";
+}
+<br />
+<h4>Add new Script:</h4>
+<form class="form-inline" asp-controller="ScriptCollection" asp-action="Add">
+    <div class="form-group mb-2">
+        <label style="line-height: 34px;" class="col-sm-2 col-form-label" for="name">Name </label>
+        <div class="col-sm-8">
+            <input class="form-control" name="name" id="name" value="" placeholder="Enter Name..." required />
+        </div>
+        <button class="btn col-sm-2" type="submit">Add</button>
+    </div>
+</form>
+
+<h2>Scripts</h2>
+
+<ul style="list-style:none">
+    @foreach (var script in Model)
+    {
+        <li>
+            <a class="btn-link" asp-controller="Script" asp-action="Index" asp-route-id="@script.Key.ToString()">@script.Value.Name</a>
+        </li>
+    }
+</ul>

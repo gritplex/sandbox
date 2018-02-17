@@ -59,7 +59,7 @@ namespace ScriptingBase
 
         public Task<object> ExecuteAsync(string expression, CancellationToken cancellation = default)
         {
-            return ExecuteInternalAsync(expression, cancellation);
+            return ExecuteInternalAsync(expression, cancellation: cancellation);
         }
 
         public Task<object> ExecuteWithGlobalAsync(string expression, object global, CancellationToken cancellation = default)

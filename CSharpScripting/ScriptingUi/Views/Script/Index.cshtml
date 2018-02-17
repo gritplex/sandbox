@@ -1,0 +1,60 @@
+﻿@model ScriptingUi.Models.ScriptModel
+
+@{
+    ViewData["Title"]=Model.Name;
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.js"></script>
+<br />
+<div class="container">
+    <div class="row">
+        <h4 class="col-sm-2">@Model.Name</h4>
+        <button onclick="window.execute()" class="col-sm-2 btn-toolbar">Execute!</button>
+        <pre class="col-sm-8" id="execResult">Script hasn't been executed yet.</pre>
+    </div>
+
+    <hr />
+    <div id="container" style="width:auto;height:400px;border:1px solid grey"></div>
+    <script src="/lib/monaco-editor/min/vs/loader.js"></script>
+    <script>
+	require.config({ paths: { 'vs': '/lib/monaco-editor/min/vs' }});
+        require(['vs/editor/editor.main'], function() {
+		window.editor = monaco.editor.create(document.getElementById('container'), {
+			value: ((@Json.Serialize(Model.SourceCode))).join('\n'),
+            language: 'csharp',
+            theme: 'vs-dark'
+            });
+        console.log(window.editor)
+        });
+
+        var getModel = function () {
+
+            return {
+                name: '@Model.Name',
+                sourceCode: window.editor.getValue().split('\n')
+            };
+        }
+
+        window.update = function () {
+            axios({
+                method: 'post',
+                url: '/Script/Update/@ViewBag.CurrentId',
+                data: getModel()
+            });
+        }
+        window.execute = function () {
+            axios({
+                method: 'post',
+                url: '/api/Execution',
+                data: getModel()
+            }).then(success => {
+                console.log(success);
+                document.getElementById("execResult").innerText = JSON.stringify(success.data, null, 2);
+             });
+        }
+    </script>
+</div>
+<br />
+<div>
+    <a asp-action="Index" asp-controller="ScriptCollection">Back to List</a> |
+    <button class="btn-primary" onclick="window.update()">Save</button> |
+</div>
