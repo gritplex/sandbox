@@ -1,5 +1,6 @@
 ﻿using ScriptingBase;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConsoleTestClient
@@ -34,6 +35,7 @@ namespace ConsoleTestClient
             None = -1,
             BasicExpression = 1,
             WithGlobal = 2,
+            WithCancellation = 3,
             Quit = 99
         }
 
@@ -62,6 +64,8 @@ namespace ConsoleTestClient
                     return BasicExpression();
                 case Options.WithGlobal:
                     return WithGlobal();
+                case Options.WithCancellation:
+                    return WithCancellation();
                 case Options.Quit:
                 default:
                     break;
@@ -109,6 +113,34 @@ namespace ConsoleTestClient
                     object result = await _scriptExecuter.ExecuteWithGlobalAsync(input, dataItem);
                     Console.WriteLine($"Result: {_scriptExecuter.Format(result)}");
                     Console.WriteLine();
+                }
+            } while (!quitRequested);
+        }
+
+        static async Task WithCancellation()
+        {
+            var dataItem = new DataItem();
+
+            Console.Clear();
+            string input = "";
+            bool quitRequested = false;
+            do
+            {
+                Console.WriteLine("Type an expression to be evaluated or 'quit' to go back.");
+                Console.WriteLine("Current state:");
+                Console.WriteLine(dataItem);
+                input = Console.ReadLine();
+                quitRequested = string.Equals(input, "quit", StringComparison.OrdinalIgnoreCase);
+                if (!quitRequested)
+                {
+                    Console.WriteLine($"Input: {input}");
+
+                    var cancellationSource = new CancellationTokenSource(dataItem.CancellationTimeout);
+                    dataItem.CancellationToken = cancellationSource.Token;
+                    object result = await _scriptExecuter.ExecuteWithGlobalAsync(input, dataItem, cancellationSource.Token);
+
+                    Console.WriteLine($"Result: {_scriptExecuter.Format(result)}");
+                    Console.WriteLine();                    
                 }
             } while (!quitRequested);
         }

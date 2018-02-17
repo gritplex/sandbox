@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.CSharp.Scripting.Hosting;
@@ -25,7 +26,7 @@ namespace ScriptingBase
             }
         }
 
-        private async Task<object> ExecuteInternalAsync(string expression, object global = null)
+        private async Task<object> ExecuteInternalAsync(string expression, object global = null, CancellationToken cancellation = default)
         {
             object result;
 
@@ -33,11 +34,11 @@ namespace ScriptingBase
             {
                 if (global == null)
                 {
-                    result = await CSharpScript.EvaluateAsync(expression);
+                    result = await CSharpScript.EvaluateAsync(expression, cancellationToken: cancellation);
                 }
                 else
                 {
-                    result = await CSharpScript.EvaluateAsync(expression, globals: global);
+                    result = await CSharpScript.EvaluateAsync(expression, globals: global, cancellationToken: cancellation);
                 }
             }
             catch (Exception e)
@@ -48,14 +49,14 @@ namespace ScriptingBase
             return result;
         }
 
-        public Task<object> ExecuteAsync(string expression)
+        public Task<object> ExecuteAsync(string expression, CancellationToken cancellation = default)
         {
-            return ExecuteInternalAsync(expression);
+            return ExecuteInternalAsync(expression, cancellation);
         }
 
-        public Task<object> ExecuteWithGlobalAsync(string expression, object global)
+        public Task<object> ExecuteWithGlobalAsync(string expression, object global, CancellationToken cancellation = default)
         {
-            return ExecuteInternalAsync(expression, global);
-        }
+            return ExecuteInternalAsync(expression, global, cancellation);
+        }        
     }
 }
