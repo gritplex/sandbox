@@ -9,7 +9,12 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
   <ItemGroup>
+    <ProjectReference Include="..\BechmarkScripting\BechmarkScripting.csproj" />
     <ProjectReference Include="..\ScriptingBase\ScriptingBase.csproj" />
   </ItemGroup>
 

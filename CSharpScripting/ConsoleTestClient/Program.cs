@@ -1,4 +1,5 @@
-﻿using ScriptingBase;
+﻿using BechmarkScripting;
+using ScriptingBase;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,6 +37,7 @@ namespace ConsoleTestClient
             BasicExpression = 1,
             WithGlobal = 2,
             WithCancellation = 3,
+            Benchmark = 50,
             Quit = 99
         }
 
@@ -66,6 +68,8 @@ namespace ConsoleTestClient
                     return WithGlobal();
                 case Options.WithCancellation:
                     return WithCancellation();
+                case Options.Benchmark:
+                    return Benchmarks.Run();                    
                 case Options.Quit:
                 default:
                     break;

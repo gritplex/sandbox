@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.CSharp.Scripting.Hosting;
+using Microsoft.CodeAnalysis.Scripting;
 
 namespace ScriptingBase
 {
@@ -24,6 +25,13 @@ namespace ScriptingBase
                 default:
                     return CSharpObjectFormatter.Instance.FormatObject(obj);
             }
+        }
+
+        public ScriptRunner<object> CreateScriptDelegate(string expression, Type globalType)
+        {
+            Script<object> script = CSharpScript.Create(expression, globalsType: globalType);
+            script.Compile();
+            return script.CreateDelegate();
         }
 
         private async Task<object> ExecuteInternalAsync(string expression, object global = null, CancellationToken cancellation = default)
@@ -57,6 +65,6 @@ namespace ScriptingBase
         public Task<object> ExecuteWithGlobalAsync(string expression, object global, CancellationToken cancellation = default)
         {
             return ExecuteInternalAsync(expression, global, cancellation);
-        }        
+        }
     }
 }
