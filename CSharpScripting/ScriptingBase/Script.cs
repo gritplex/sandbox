@@ -25,20 +25,37 @@ namespace ScriptingBase
             }
         }
 
-        public async Task<object> ExecuteAsync(string expression)
+        private async Task<object> ExecuteInternalAsync(string expression, object global = null)
         {
             object result;
 
             try
             {
-                result = await CSharpScript.EvaluateAsync(expression);
+                if (global == null)
+                {
+                    result = await CSharpScript.EvaluateAsync(expression);
+                }
+                else
+                {
+                    result = await CSharpScript.EvaluateAsync(expression, globals: global);
+                }
             }
             catch (Exception e)
             {
-                result = e;                
+                result = e;
             }
 
             return result;
+        }
+
+        public Task<object> ExecuteAsync(string expression)
+        {
+            return ExecuteInternalAsync(expression);
+        }
+
+        public Task<object> ExecuteWithGlobalAsync(string expression, object global)
+        {
+            return ExecuteInternalAsync(expression, global);
         }
     }
 }
